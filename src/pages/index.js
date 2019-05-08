@@ -6,18 +6,16 @@ import ProjectPreview from '../components/project-preview';
 const Home = () => {
   const data = useStaticQuery(graphql`
     {
-      allSanityProject {
+      allProjectsJson {
         edges {
           node {
             title
-            slug {
-              current
-            }
+            slug
             description
             image {
-              asset {
+              childImageSharp {
                 fluid {
-                  ...GatsbySanityImageFluid
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
@@ -26,15 +24,15 @@ const Home = () => {
       }
     }
   `);
-  const projects = data.allSanityProject.edges;
+  const projects = data.allProjectsJson.edges;
 
   return (
     <Layout>
       {projects.map(({ node: project }) => {
         const title = project.title;
         const description = project.description;
-        const slug = project.slug.current;
-        const imageData = project.image.asset.fluid;
+        const slug = project.slug;
+        const imageData = project.image.childImageSharp.fluid;
 
         return (
           <ProjectPreview

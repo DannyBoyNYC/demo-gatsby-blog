@@ -1,12 +1,10 @@
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     {
-      allSanityProject {
+      allProjectsJson {
         edges {
           node {
-            slug {
-              current
-            }
+            slug
           }
         }
       }
@@ -18,10 +16,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return;
   }
 
-  const projects = result.data.allSanityProject.edges;
+  const projects = result.data.allProjectsJson.edges;
 
   projects.forEach(({ node: project }) => {
-    const slug = project.slug.current;
+    const slug = project.slug;
 
     actions.createPage({
       path: `/${slug}/`,

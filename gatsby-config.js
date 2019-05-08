@@ -1,12 +1,14 @@
 module.exports = {
   plugins: [
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
-      resolve: 'gatsby-source-sanity',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        projectId: '2y3275eg',
-        dataset: 'production',
-        watchMode: true
+        name: 'project',
+        path: './data'
       }
-    }
+    },
+    'gatsby-transformer-json'
   ]
 };
